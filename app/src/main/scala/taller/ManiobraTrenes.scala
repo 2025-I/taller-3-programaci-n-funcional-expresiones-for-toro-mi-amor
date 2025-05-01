@@ -13,7 +13,7 @@ class ManiobraTrenes {
   case class Dos(n:Int) extends Movimiento
 
   // función para mover un tren de un carril a otro
-  def AplicarMovimiento(e:Estado, m:Movimiento):Estado = {
+  def aplicarMovimiento(e:Estado, m:Movimiento):Estado = {
     val (principal, uno, dos) = e
     m match {
       // mover del carril principal al carril uno y viceversa
@@ -24,7 +24,7 @@ class ManiobraTrenes {
                               else (Nil, principal)
         (for {
           carrilPrincipal <- List(resto)
-          carrilUno       <- List(uno ++ aMover)
+          carrilUno       <- List(aMover ++ uno)
           } yield (carrilPrincipal, carrilUno, dos)
         ).head
       case Uno(n) if (n<0) =>
@@ -44,7 +44,7 @@ class ManiobraTrenes {
                               else (Nil, principal)
         (for {
           carrilPrincipal <- List(resto)
-          carrilDos <- List(dos ++ aMover)
+          carrilDos <- List(aMover ++ dos)
           } yield (carrilPrincipal, uno, carrilDos)
         ).head
       case Dos(n) if (n<0) =>
