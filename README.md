@@ -6,3 +6,8 @@
 - Sólo modificar lo indicado por el docente
 - Debe agregar las pruebas de software solicitadas en el docente
 - El informe en formato PDF debe estar en la raiz del proyecto
+
+## Participantes del grupo:
+- Nicolás Chaparro González **(2380530)**
+- Sofía Carolina Quenorán Ipuján **(2376849)**
+- Andrés Felipe Salcedo Buitrago **(2359304)**
