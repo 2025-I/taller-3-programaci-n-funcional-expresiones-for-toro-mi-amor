@@ -1,5 +1,7 @@
 package taller
 
+import scala.annotation.tailrec
+
 class ManiobraTrenes {
   // tipos de datos simplificados
   type Vagon  = Any
@@ -56,5 +58,20 @@ class ManiobraTrenes {
           } yield (carrilPrincipal, uno, carrilDos)
         ).head
     }
+  }
+
+  def aplicarMovimientos(e: Estado, movs: Maniobra): List[Estado] = {
+    @tailrec
+    def movimientoAux(movs: Maniobra, listaEstados: List[Estado]): List[Estado] = movs match {
+      case Nil => listaEstados
+      case h :: t =>
+        val nuevoEstado = for {
+          estadoActual <- List(listaEstados.last)
+          siguiente    <- List(aplicarMovimiento(estadoActual, h))
+        }
+        yield siguiente
+        movimientoAux(t, listaEstados :+ nuevoEstado.head)
+    }
+    movimientoAux(movs, List(e))
   }
 }
