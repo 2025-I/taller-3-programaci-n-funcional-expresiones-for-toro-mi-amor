@@ -3,6 +3,7 @@
 Antes de explicar la función, hay que ponernos en contexto sobre los
 diferentes tipos de valores con los que trabaja el sistema. Estos son:
 - `Tren:` el cual representa una lista de **vagones.**
+- 
 $$
 T = List[V]
 $$
@@ -10,6 +11,7 @@ $$
 - `Estado:` el cual representa un conjunto de tres **trenes.** Cada
 posición contiene el tren ubicado en los carriles: $P$rincipal, $U$no
 y $D$os respectivamente.
+
 $$
 E = (P,U,D)
 $$
@@ -134,15 +136,19 @@ $$
 Ya conociendo todo el funcionamiento del código pasemos a un pequeño
 ejemplo para observar su comportamiento,supongamos que tenemos la
 siguiente lista de vagones:
+
 $$
 List(1,2,3,4,5,6)
 $$
-Como podemos ver es tren de tamaño 6 y queremos hacer algo sencillo:
+
+Como podemos ver es un tren de tamaño 6 y queremos hacer algo sencillo:
 mover el vagón `6` de forma que quede de primero. Para esto se podrían
 emplear los siguientes movimientos:
+
 $$
 Uno(6) \text{ - } Uno(-5) \text{ - } Dos(5) \text{ - }  Uno(-1) \text{ - } Dos(-5)
 $$
+
 Lo que paso por paso se vería de la siguiente manera:
     
     (List(1,2,3,4,5,6), Nil, Nil) // estado inicial
@@ -151,4 +157,3 @@ Lo que paso por paso se vería de la siguiente manera:
     (Nil, List(6), List(1,2,3,4,5)) // Dos(5), se mueven todos los vagones del carril Principal al carril Dos
     (List(6), Nil, List(1,2,3,4,5)) // Uno(-1), se devuelve el vagon 6 al carril Principal
     (List(6,1,2,3,4,5), Nil, Nil) // Dos(-5), se devuelven todos los vagones del carril Dos al carril Principal
-
