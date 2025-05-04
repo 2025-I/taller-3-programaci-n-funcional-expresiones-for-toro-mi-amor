@@ -75,4 +75,29 @@ class ManiobraTrenes {
     }
     movimientoAux(movs, List(e))
   }
+  def definirManiobra(inicial:Tren, deseado:Tren):Maniobra = {
+    val n = inicial.length
+    val primerosPasos = List(Uno(n), Uno(-(n-1)), Dos(n-1))
+    val estadoInicial = aplicarMovimientos((inicial, Nil, Nil), primerosPasos).last
+    val posibleMov = List(Uno(1), Uno(-1), Dos(1), Dos(-1))
+
+    @tailrec
+    def auxiliar(pendientes:List[(Estado, Maniobra)], visitados:List[Estado]):Maniobra = pendientes match {
+      case Nil => List()
+      case (actual, listaMov) :: resto =>
+        val (principal, uno, dos) = actual
+        if (principal == deseado && uno.isEmpty && dos.isEmpty) listaMov
+        else {
+          val nuevoMov = for {
+            mover <- posibleMov
+            siguiente = aplicarMovimiento(actual, mover)
+            if (siguiente != actual)
+            if (!visitados.contains(siguiente))
+          } yield (siguiente, listaMov :+ mover)
+          auxiliar(resto ++ nuevoMov, visitados ++ nuevoMov.map(_._1)
+          )
+        }
+    }
+    auxiliar(List((estadoInicial, primerosPasos)), List(estadoInicial))
+  }
 }
